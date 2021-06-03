@@ -6,7 +6,7 @@ import java.util.List;
 
 public class Visitor {
 
-    private static int MIN_REQUIRED_DINO = 3;
+    private static final int MIN_REQUIRED_DINO = 3;
 
     private Integer id;
     private String name;
