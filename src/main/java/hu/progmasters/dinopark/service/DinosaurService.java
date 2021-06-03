@@ -1,6 +1,6 @@
 package hu.progmasters.dinopark.service;
 
-import hu.progmasters.dinopark.domain.Diet;
+import hu.progmasters.dinopark.domain.DinosaurDietType;
 import hu.progmasters.dinopark.domain.Dinosaur;
 import hu.progmasters.dinopark.dto.DinosaurCreate;
 import hu.progmasters.dinopark.dto.DinosaurInfo;
@@ -14,7 +14,7 @@ import java.util.stream.Collectors;
 @Service
 public class DinosaurService {
 
-    private DinosaurRepository dinosaurRepository;
+    private final DinosaurRepository dinosaurRepository;
 
     @Autowired
     public DinosaurService(DinosaurRepository dinosaurRepository) {
@@ -34,7 +34,7 @@ public class DinosaurService {
     }
 
     public List<DinosaurInfo> findAllByDiet(String diet) throws IllegalArgumentException {
-        return dinosaurRepository.findAllByDiet(Diet.valueOf(diet)).stream()
+        return dinosaurRepository.findAllByDiet(DinosaurDietType.valueOf(diet.toUpperCase())).stream()
                 .map(this::convertToDinosaurInfo)
                 .collect(Collectors.toList());
     }
@@ -43,7 +43,7 @@ public class DinosaurService {
         return new Dinosaur()
                 .setName(create.getName())
                 .setBreed(create.getBreed())
-                .setDiet(Diet.valueOf(create.getDiet().toUpperCase()));
+                .setDiet(DinosaurDietType.valueOf(create.getDiet().toUpperCase()));
     }
 
     private DinosaurInfo convertToDinosaurInfo(Dinosaur dinosaur) {

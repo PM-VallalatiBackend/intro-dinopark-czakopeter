@@ -1,6 +1,6 @@
 package hu.progmasters.dinopark.repository;
 
-import hu.progmasters.dinopark.domain.Diet;
+import hu.progmasters.dinopark.domain.DinosaurDietType;
 import hu.progmasters.dinopark.domain.Dinosaur;
 import org.springframework.stereotype.Repository;
 
@@ -13,7 +13,7 @@ import java.util.stream.Collectors;
 @Repository
 public class DinosaurRepositoryInMemory implements DinosaurRepository {
 
-    private Map<Integer, Dinosaur> dinosaurs = new HashMap<>();
+    private final Map<Integer, Dinosaur> dinosaurs = new HashMap<>();
     private int nextIndex = 1;
 
     @Override
@@ -32,9 +32,9 @@ public class DinosaurRepositoryInMemory implements DinosaurRepository {
     }
 
     @Override
-    public List<Dinosaur> findAllByDiet(Diet diet) {
+    public List<Dinosaur> findAllByDiet(DinosaurDietType dinosaurDietType) {
         return dinosaurs.values().stream()
-                .filter(dino -> dino.getDiet().equals(diet))
+                .filter(dino -> dino.getDiet().equals(dinosaurDietType))
                 .sorted(Comparator.comparing(Dinosaur::getId))
                 .collect(Collectors.toList());
     }

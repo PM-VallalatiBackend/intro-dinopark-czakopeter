@@ -1,6 +1,6 @@
 package hu.progmasters.dinopark.repository;
 
-import hu.progmasters.dinopark.domain.Diet;
+import hu.progmasters.dinopark.domain.DinosaurDietType;
 import hu.progmasters.dinopark.domain.Dinosaur;
 
 import java.util.List;
@@ -11,5 +11,5 @@ public interface DinosaurRepository {
 
     List<Dinosaur> findAll();
 
-    List<Dinosaur> findAllByDiet(Diet diet);
+    List<Dinosaur> findAllByDiet(DinosaurDietType dinosaurDietType);
 }
