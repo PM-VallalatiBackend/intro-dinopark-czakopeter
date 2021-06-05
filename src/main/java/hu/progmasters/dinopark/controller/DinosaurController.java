@@ -1,5 +1,6 @@
 package hu.progmasters.dinopark.controller;
 
+import hu.progmasters.dinopark.domain.DinosaurType;
 import hu.progmasters.dinopark.dto.DinosaurCreate;
 import hu.progmasters.dinopark.dto.DinosaurInfo;
 import hu.progmasters.dinopark.service.DinosaurService;
@@ -24,11 +25,9 @@ public class DinosaurController {
     @PostMapping
     public ResponseEntity<DinosaurInfo> save(@RequestBody DinosaurCreate dinosaurCreate) {
         DinosaurInfo dinosaurInfo = dinosaurService.save(dinosaurCreate);
-        if(dinosaurInfo != null) {
-            return new ResponseEntity<>(dinosaurInfo, HttpStatus.CREATED);
-        } else {
-            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-        }
+        return dinosaurInfo != null
+            ? new ResponseEntity<>(dinosaurInfo, HttpStatus.CREATED)
+            : new ResponseEntity<>(HttpStatus.BAD_REQUEST);
     }
 
     @GetMapping
@@ -37,13 +36,10 @@ public class DinosaurController {
         return new ResponseEntity<>(dinosaurInfos, HttpStatus.OK);
     }
 
-    @GetMapping("/{diet}")
-    public ResponseEntity<List<DinosaurInfo>> findAllByDiet(@PathVariable String diet) {
-        try{
-            List<DinosaurInfo> dinosaurInfos = dinosaurService.findAllByDiet(diet);
-            return new ResponseEntity<>(dinosaurInfos, HttpStatus.OK);
-        } catch (IllegalArgumentException e) {
-            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-        }
+    @GetMapping("/{type}")
+    public ResponseEntity<List<DinosaurInfo>> findAllByType(@PathVariable String type) {
+        return DinosaurType.contains(type)
+            ? new ResponseEntity<>(dinosaurService.findAllByType(type), HttpStatus.OK)
+            : new ResponseEntity<>(HttpStatus.BAD_REQUEST);
     }
 }

@@ -5,7 +5,7 @@ public class Dinosaur {
     private Integer id;
     private String name;
     private String breed;
-    private DinosaurDietType dinosaurDietType;
+    private DinosaurType dinosaurType;
 
     public Dinosaur() {}
 
@@ -36,12 +36,12 @@ public class Dinosaur {
         return this;
     }
 
-    public DinosaurDietType getDiet() {
-        return dinosaurDietType;
+    public DinosaurType getType() {
+        return dinosaurType;
     }
 
-    public Dinosaur setDiet(DinosaurDietType dinosaurDietType) {
-        this.dinosaurDietType = dinosaurDietType;
+    public Dinosaur setType(DinosaurType dinosaurType) {
+        this.dinosaurType = dinosaurType;
         return this;
     }
 }

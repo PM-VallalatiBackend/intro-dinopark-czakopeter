@@ -1,6 +1,6 @@
 package hu.progmasters.dinopark.repository;
 
-import hu.progmasters.dinopark.domain.DinosaurDietType;
+import hu.progmasters.dinopark.domain.DinosaurType;
 import hu.progmasters.dinopark.domain.Dinosaur;
 import org.springframework.stereotype.Repository;
 
@@ -32,9 +32,9 @@ public class DinosaurRepositoryInMemory implements DinosaurRepository {
     }
 
     @Override
-    public List<Dinosaur> findAllByDiet(DinosaurDietType dinosaurDietType) {
+    public List<Dinosaur> findAllByType(DinosaurType dinosaurType) {
         return dinosaurs.values().stream()
-                .filter(dino -> dino.getDiet().equals(dinosaurDietType))
+                .filter(dino -> dino.getType().equals(dinosaurType))
                 .sorted(Comparator.comparing(Dinosaur::getId))
                 .collect(Collectors.toList());
     }

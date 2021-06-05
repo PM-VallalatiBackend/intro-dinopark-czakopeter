@@ -5,7 +5,7 @@ public class DinosaurInfo {
     private int id;
     private String name;
     private String breed;
-    private String diet;
+    private String type;
 
     public DinosaurInfo() {
     }
@@ -37,12 +37,12 @@ public class DinosaurInfo {
         return this;
     }
 
-    public String getDiet() {
-        return diet;
+    public String getType() {
+        return type;
     }
 
-    public DinosaurInfo setDiet(String diet) {
-        this.diet = diet;
+    public DinosaurInfo setType(String type) {
+        this.type = type;
         return this;
     }
 }

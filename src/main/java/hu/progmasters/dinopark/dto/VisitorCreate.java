@@ -3,7 +3,7 @@ package hu.progmasters.dinopark.dto;
 public class VisitorCreate {
 
     private String name;
-    private String preferredDinoDietType;
+    private String preferredDinoType;
 
     public VisitorCreate() {}
 
@@ -16,12 +16,12 @@ public class VisitorCreate {
         return this;
     }
 
-    public String getPreferredDinoDietType() {
-        return preferredDinoDietType;
+    public String getPreferredDinoType() {
+        return preferredDinoType;
     }
 
-    public VisitorCreate setPreferredDinoDietType(String preferredDinoDietType) {
-        this.preferredDinoDietType = preferredDinoDietType;
+    public VisitorCreate setPreferredDinoType(String preferredDinoType) {
+        this.preferredDinoType = preferredDinoType;
         return this;
     }
 }

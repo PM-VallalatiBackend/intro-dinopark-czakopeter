@@ -1,11 +1,12 @@
 package hu.progmasters.dinopark.service;
 
-import hu.progmasters.dinopark.domain.DinosaurDietType;
+import hu.progmasters.dinopark.domain.DinosaurType;
 import hu.progmasters.dinopark.domain.Dinosaur;
 import hu.progmasters.dinopark.dto.DinosaurCreate;
 import hu.progmasters.dinopark.dto.DinosaurInfo;
 import hu.progmasters.dinopark.repository.DinosaurRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -17,7 +18,8 @@ public class DinosaurService {
     private final DinosaurRepository dinosaurRepository;
 
     @Autowired
-    public DinosaurService(DinosaurRepository dinosaurRepository) {
+    public DinosaurService(
+            @Qualifier("dinosaurRepositoryH2JdbcTemplate") DinosaurRepository dinosaurRepository) {
         this.dinosaurRepository = dinosaurRepository;
     }
 
@@ -33,8 +35,8 @@ public class DinosaurService {
                 .collect(Collectors.toList());
     }
 
-    public List<DinosaurInfo> findAllByDiet(String diet) throws IllegalArgumentException {
-        return dinosaurRepository.findAllByDiet(DinosaurDietType.valueOf(diet.toUpperCase())).stream()
+    public List<DinosaurInfo> findAllByType(String type) throws IllegalArgumentException {
+        return dinosaurRepository.findAllByType(DinosaurType.valueOf(type.toUpperCase())).stream()
                 .map(this::convertToDinosaurInfo)
                 .collect(Collectors.toList());
     }
@@ -43,7 +45,7 @@ public class DinosaurService {
         return new Dinosaur()
                 .setName(create.getName())
                 .setBreed(create.getBreed())
-                .setDiet(DinosaurDietType.valueOf(create.getDiet().toUpperCase()));
+                .setType(DinosaurType.valueOf(create.getType().toUpperCase()));
     }
 
     private DinosaurInfo convertToDinosaurInfo(Dinosaur dinosaur) {
@@ -51,6 +53,6 @@ public class DinosaurService {
                 .setId(dinosaur.getId())
                 .setName(dinosaur.getName())
                 .setBreed(dinosaur.getBreed())
-                .setDiet(dinosaur.getDiet().name().toLowerCase());
+                .setType(dinosaur.getType().name().toLowerCase());
     }
 }

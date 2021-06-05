@@ -1,12 +1,13 @@
 package hu.progmasters.dinopark.service;
 
-import hu.progmasters.dinopark.domain.DinosaurDietType;
+import hu.progmasters.dinopark.domain.DinosaurType;
 import hu.progmasters.dinopark.domain.Visitor;
 import hu.progmasters.dinopark.dto.DinosaurInfo;
 import hu.progmasters.dinopark.dto.VisitorCreate;
 import hu.progmasters.dinopark.dto.VisitorInfo;
 import hu.progmasters.dinopark.repository.VisitorRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -20,7 +21,8 @@ public class VisitorService {
     private final VisitorRepository visitorRepository;
 
     @Autowired
-    public VisitorService(DinosaurService dinosaurService, VisitorRepository visitorRepository) {
+    public VisitorService(DinosaurService dinosaurService,
+                          @Qualifier("visitorRepositoryH2JdbcTemplate") VisitorRepository visitorRepository) {
         this.dinosaurService = dinosaurService;
         this.visitorRepository = visitorRepository;
     }
@@ -44,7 +46,7 @@ public class VisitorService {
     private Visitor convertToVisitor(VisitorCreate create) {
         return new Visitor()
                 .setName(create.getName())
-                .setPreferred(DinosaurDietType.valueOf(create.getPreferredDinoDietType().toUpperCase()));
+                .setPreferred(DinosaurType.valueOf(create.getPreferredDinoType().toUpperCase()));
     }
 
     private VisitorInfo convertToVisitorInfo(Visitor visitor) {
